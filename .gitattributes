@@ -1,0 +1,7 @@
+* text=auto
+*.md text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+
+# Preserve dependency notices byte-for-byte against licenses/manifest.json.
+/licenses/** -text

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "packs": [
+    {
+      "id": "unofficial-patch",
+      "name": "Unofficial Patch",
+      "author": "Werner Spahl (Wesp5)",
+      "version": "11.5-resource.20261030-sidequest",
+      "status": "released",
+      "download": "https://github.com/alex-nax/resource/releases/download/v0.1.0/resource-unofficial-patch-11.5-resource.20261030-sidequest.zip",
+      "requiresLegalGame": true,
+      "compiledPython": {
+        "version": "2.1",
+        "magic": 60202,
+        "sources": 35
+      },
+      "installRoot": "/sdcard/vtmb",
+      "compiledPath": "Unofficial_Patch/python",
+      "sha256": "897489ba3de48246a8be278dfd41b219b5ac745006c3e0deef19e5181b2af28e",
+      "bytes": 552831397,
+      "files": 14939
+    }
+  ]
+}

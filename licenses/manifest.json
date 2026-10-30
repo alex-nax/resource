@@ -1,0 +1,169 @@
+[
+  {
+    "dependency": "dr_libs",
+    "revision": "da35f9d6c7374a95353fd1df1d394d44ab66cf01",
+    "file": "licenses/dr_libs/LICENSE",
+    "sha256": "a13603628866863f196c0201891a6dcc8062481e83b5d686f34cf9e45ceec899"
+  },
+  {
+    "dependency": "glm",
+    "revision": "0af55ccecd98d4e5a8d1fad7de25ba429d60e863",
+    "file": "licenses/glm/copying.txt",
+    "sha256": "48a257765ea19d81252ee44cba0f0eda525c6b2dcbf483cc39015dd76a6f0a20"
+  },
+  {
+    "dependency": "jolt",
+    "revision": "0373ec0dd762e4bc2f6acdb08371ee84fa23c6db",
+    "file": "licenses/jolt/LICENSE",
+    "sha256": "8d1c7e0303333dfdafcc6583c620eb163e9c6c53c7cebcb53db78eaa9807e76c"
+  },
+  {
+    "dependency": "mimalloc",
+    "revision": "8c532c32c3c96e5ba1f2283e032f69ead8add00f",
+    "file": "licenses/mimalloc/LICENSE",
+    "sha256": "19c99805e7a44a34b297a75d1edea9985e300066dfc024d5c99d4236d4573b5d"
+  },
+  {
+    "dependency": "miniz",
+    "revision": "293d4db1b7d0ffee9756d035b9ac6f7431ef8492",
+    "file": "licenses/miniz/LICENSE",
+    "sha256": "0115478d567121238cf6cc1c0c361926cf07a49d9e4c9e66da97fac6a01646b3"
+  },
+  {
+    "dependency": "openal",
+    "revision": "b2c48f7718ef3fcf67921a8b6534c4914e328970",
+    "file": "licenses/openal/COPYING",
+    "sha256": "1c0a7449390f5a8ec7c4268c738bf3b72ed17ea6e68489afa6a952d846878775"
+  },
+  {
+    "dependency": "openal",
+    "revision": "b2c48f7718ef3fcf67921a8b6534c4914e328970",
+    "file": "licenses/openal/LICENSE-pffft",
+    "sha256": "f4a0a5d9fea80802894756cb12245739987f38deee9db74b33a7b1cb4efc9e23"
+  },
+  {
+    "dependency": "openxr",
+    "revision": "781f2eab3698d653c804ecbd11e0aed47eaad1c6",
+    "file": "licenses/openxr/COPYING.adoc",
+    "sha256": "3948df51fcf161cf0bfd3aa3d5a8058b92d903ca5829002178f119d73e736374"
+  },
+  {
+    "dependency": "openxr",
+    "revision": "781f2eab3698d653c804ecbd11e0aed47eaad1c6",
+    "file": "licenses/openxr/LICENSE",
+    "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+  },
+  {
+    "dependency": "stb",
+    "revision": "31c1ad37456438565541f4919958214b6e762fb4",
+    "file": "licenses/stb/LICENSE",
+    "sha256": "11dd149dbc50748419a22fcec275b5bcfb4c2d86d9fba8802e5c4ffd40c94609"
+  },
+  {
+    "dependency": "microui",
+    "file": "licenses/microui/LICENSE",
+    "sha256": "470601a025efe1d098dcce9b86b4e5b3fbdb9341c1f9ec285cf9435f6caa0a38"
+  },
+  {
+    "dependency": "infra-vr",
+    "file": "licenses/infra-vr/LICENSE",
+    "sha256": "8b786c7293c5bc804b8f221f636acde6fcfced7dda8642b6895ad6cd13059dc4"
+  },
+  {
+    "dependency": "cjson",
+    "file": "licenses/cjson/LICENSE",
+    "sha256": "ca7ea72cf3674a70394b1f377e85dc402a2dfae37385f14da6ccba4296849f9b"
+  },
+  {
+    "dependency": "vulkan",
+    "file": "licenses/vulkan/LICENSE.md",
+    "sha256": "f43ba543d73f08f7401d99b697b2b741704eb22b5447a5021fd92b279b297646"
+  },
+  {
+    "dependency": "android-ndk",
+    "file": "licenses/android-ndk/NOTICE",
+    "sha256": "4d5224d1c0b54ffa88b0dc0088191638fdbb7227835095dfb98f7f66b416a323",
+    "revision": "27.2.12479018"
+  },
+  {
+    "dependency": "android-ndk",
+    "file": "licenses/android-ndk/NOTICE.toolchain",
+    "sha256": "cbe3237be53c0a819f8df6aac5358fdee848eee3b6571b4e2ca20767ebd7465e",
+    "revision": "27.2.12479018"
+  },
+  {
+    "dependency": "openxr",
+    "file": "licenses/openxr/LICENSES/Apache-2.0.txt",
+    "sha256": "406e740a1c88320a2812cd3dae908abdcbe1044b1d6393a90e8c6ef229bd4cf2"
+  },
+  {
+    "dependency": "openxr",
+    "file": "licenses/openxr/LICENSES/BSD-3-Clause.txt",
+    "sha256": "20f7699c80709e2fec384a67ed87ee02254caceedf574c817fbe604f8cdd942f"
+  },
+  {
+    "dependency": "openxr",
+    "file": "licenses/openxr/LICENSES/BSL-1.0.txt",
+    "sha256": "ca94d9245a342b2e9a8f0edeaec3dd30a8fa97734dec0b9a330795d3bcc18a6f"
+  },
+  {
+    "dependency": "openxr",
+    "file": "licenses/openxr/LICENSES/CC-BY-4.0.txt",
+    "sha256": "0ef7814bce4078681833dd597a960fda6f81492a6fbfffbaa913ddbe56125588"
+  },
+  {
+    "dependency": "openxr",
+    "file": "licenses/openxr/LICENSES/CC0-1.0.txt",
+    "sha256": "42d7f40b47124b151d055b579fc4bf50fa9090b15dfc3dd57088ca0d9408da7e"
+  },
+  {
+    "dependency": "openxr",
+    "file": "licenses/openxr/LICENSES/ISC.txt",
+    "sha256": "d3d24a1d385cf8ac3c07ff5df6068bc7f1151facbd7ea8dcab14c3d5feb919ec"
+  },
+  {
+    "dependency": "openxr",
+    "file": "licenses/openxr/LICENSES/LicenseRef-jsoncpp-public-domain.txt",
+    "sha256": "5dd2df78b43c85aef22146eb7c667fea6c57e106dde0ef9ba6936a8927c93f4b"
+  },
+  {
+    "dependency": "openxr",
+    "file": "licenses/openxr/LICENSES/LicenseRef-Khronos-Free-Use-License-for-Software-and-Documentation.txt",
+    "sha256": "cf32bfbbb24d602d7eadbc4d501720e1b6eca4c8e344c5988c4edae6a03561be"
+  },
+  {
+    "dependency": "openxr",
+    "file": "licenses/openxr/LICENSES/LicenseRef-KhronosSpecCopyright-WithNormativeWording-v10.txt",
+    "sha256": "4b2d5152572feb7928fdf7a2b1a73d9b3771b6c98818054372ab523b93d02644"
+  },
+  {
+    "dependency": "openxr",
+    "file": "licenses/openxr/LICENSES/MIT.txt",
+    "sha256": "0459805ebfeff6e7cbe7a1913fe79e75ad192965dcfebceac11ec4c233acf53c"
+  },
+  {
+    "dependency": "openxr",
+    "file": "licenses/openxr/LICENSES/OFL-1.1-RFN.txt",
+    "sha256": "ba0acac9cabc842612deb8ca19f6a79a352de690b2867a3f0a2bedcc59297c5b"
+  },
+  {
+    "dependency": "openxr",
+    "file": "licenses/openxr/LICENSES/Unlicense.txt",
+    "sha256": "400f5d8e311922cb34395c4c6f36b2a520f14fbab64393beac27cd9c1938f0a8"
+  },
+  {
+    "dependency": "openxr",
+    "file": "licenses/openxr/LICENSES/Zlib.txt",
+    "sha256": "228d112139d15f8b0a51da82de4c002a0252f5cdec9ebef26bd0d05cfe73bcee"
+  },
+  {
+    "dependency": "openxr-jsoncpp",
+    "file": "licenses/openxr/jsoncpp/LICENSE",
+    "sha256": "ecf1a272af5d660ed0054701b5662e6a9f208b56502dc67983fce60a657d58b2"
+  },
+  {
+    "dependency": "openxr-jnipp",
+    "file": "licenses/openxr/jnipp/LICENSE",
+    "sha256": "4057416bf9f4a9dc2cc3fef280d20337856d5363fcc6a6fa6f79c0ea760bf549"
+  }
+]
