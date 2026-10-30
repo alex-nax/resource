@@ -10,9 +10,17 @@ is required. Maintainers need Python 3.9+ for the tools below.
 The build command takes an installed patch, a fresh compiler result, and the
 original Wesp5 readme. It excludes personal saves/configuration and native programs,
 refuses stale/missing bytecode and never overwrites an existing output.
+Supply the patch installer's `Vampire/scripts/liblist.gam` with `--game-info` if
+the overlay lacks it. Both configured launch maps must exist in the patch.
 
 ```text
-python tools/build_pack.py build --source "C:/Bloodlines/Unofficial_Patch" --compiled "C:/ReSource/compiled" --readme "C:/Bloodlines/VTMBup-readme.txt" --version YOUR-PACK-VERSION --output "C:/ReSource/patch.zip"
+python tools/build_pack.py build --source "C:/Bloodlines/Unofficial_Patch" --compiled "C:/ReSource/compiled" --readme "C:/Bloodlines/VTMBup-readme.txt" --game-info "C:/Bloodlines/Vampire/scripts/liblist.gam" --version YOUR-PACK-VERSION --output "C:/ReSource/patch.zip"
+```
+
+To make the small 0.1.0 startup fix (extracted directly into `vtmb`):
+
+```text
+python tools/build_pack.py game-info-fix --source "C:/Bloodlines/Unofficial_Patch" --game-info "C:/Bloodlines/Vampire/scripts/liblist.gam" --output "C:/ReSource/vtmb-new-game-fix-0.1.0.zip"
 ```
 
 ## Compile all scripts

@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
+import re
 import shutil
 import struct
 import zipfile
@@ -15,6 +16,41 @@ PYC_PREFIX = UP_PREFIX + "python/"
 EXCLUDED_DIRS = {"save", "saves", "profiles", "screenshots", "logs", "crashes", "dlls", "cl_dlls", "bin"}
 EXCLUDED_NAMES = {"config.cfg", "settings.cfg", "autoexec-personal.cfg", "thumbs.db", "desktop.ini"}
 NATIVE_SUFFIXES = {".exe", ".dll", ".asi", ".so", ".dylib", ".vtm"}
+GAME_INFO = "scripts/liblist.gam"
+
+
+def check_game_info(data, names):
+    values = {}
+    for line in data.decode("latin-1").splitlines():
+        match = re.match(r'^\s*(startmap|trainingmap)\s*"([^"]*)"', line)
+        if match:
+            values[match[1]] = match[2]
+    available = {name.lower() for name in names}
+    for key in ("startmap", "trainingmap"):
+        value = values.get(key, "")
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", value):
+            raise ValueError(f"missing or unsafe {key} in {GAME_INFO}")
+        if UP_PREFIX.lower() + f"maps/{value.lower()}.bsp" not in available:
+            raise ValueError(f"{key} map is missing from the patch: {value}")
+
+
+def game_info_entries(source, game_info):
+    path = Path(game_info) if game_info is not None else Path(source) / GAME_INFO
+    if not path.is_file():
+        raise ValueError(f"missing {GAME_INFO}; supply --game-info from the patched installation")
+    entries = [(UP_PREFIX + rel, p) for rel, p in files_under(source) if not excluded(rel)]
+    check_game_info(path.read_bytes(), (name for name, _ in entries))
+    return path
+
+
+def build_game_info_fix(source, game_info, output):
+    output = Path(output)
+    if output.exists():
+        raise FileExistsError(output)
+    path = game_info_entries(source, game_info)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(output, "x", compression=zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr("Unofficial_Patch/" + GAME_INFO, path.read_bytes())
 
 
 def excluded(path):
@@ -79,6 +115,9 @@ def verify(archive_path):
         declared = {row["path"] for row in rows}
         if len(declared) != len(rows) or set(names) != declared | {"vtmb/pack.json"}:
             raise ValueError("unexpected or undeclared file")
+        if UP_PREFIX + GAME_INFO not in names:
+            raise ValueError(f"missing {GAME_INFO}")
+        check_game_info(archive.read(UP_PREFIX + GAME_INFO), names)
         sources, compiled = set(), set()
         for row in rows:
             name = row["path"]
@@ -111,7 +150,7 @@ def verify(archive_path):
         return manifest
 
 
-def build(source, compiled_root, readme, output, version):
+def build(source, compiled_root, readme, output, version, game_info=None):
     source, compiled_root, readme, output = map(Path, (source, compiled_root, readme, output))
     if output.exists():
         raise FileExistsError(output)
@@ -119,8 +158,11 @@ def build(source, compiled_root, readme, output, version):
         raise ValueError("base game files are not a patch pack")
     if b"Wesp5" not in readme.read_bytes():
         raise ValueError("the original Wesp5 readme is required")
+    info_path = game_info_entries(source, game_info)
     entries = [(UP_PREFIX + rel, path) for rel, path in files_under(source)
-               if not excluded(rel) and not (rel.startswith("python/") and rel.endswith(".pyc"))]
+               if rel.lower() != GAME_INFO and not excluded(rel)
+               and not (rel.startswith("python/") and rel.endswith(".pyc"))]
+    entries.append((UP_PREFIX + GAME_INFO, info_path))
     sources = {name[len(UP_PREFIX + "python/"):-3] for name, _ in entries
                if name.startswith(UP_PREFIX + "python/") and name.endswith(".py")}
     compiled = {rel[:-4]: path for rel, path in files_under(compiled_root / "python") if rel.endswith(".pyc")}
@@ -170,14 +212,22 @@ def main():
     make = commands.add_parser("build")
     for name in ("source", "compiled", "readme", "output", "version"):
         make.add_argument("--" + name, required=True)
+    make.add_argument("--game-info", type=Path)
+    fix = commands.add_parser("game-info-fix")
+    for name in ("source", "game-info", "output"):
+        fix.add_argument("--" + name, type=Path, required=True)
     check = commands.add_parser("verify")
     check.add_argument("archive", type=Path)
     args = parser.parse_args()
+    if args.command == "game-info-fix":
+        build_game_info_fix(args.source, args.game_info, args.output)
+        print(json.dumps({"archive": str(args.output), "sha256": digest_file(args.output)}, indent=2))
+        return
     if args.command == "verify":
         result = verify(args.archive)
         output = args.archive
     else:
-        result = build(args.source, args.compiled, args.readme, args.output, args.version)
+        result = build(args.source, args.compiled, args.readme, args.output, args.version, args.game_info)
         output = Path(args.output)
     print(json.dumps({"archive": str(output), "sha256": digest_file(output), "version": result["version"],
                       "files": len(result["files"]), "compiledScripts": result["compiledScripts"]}, indent=2))

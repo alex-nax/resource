@@ -18,7 +18,14 @@
       "compiledPath": "Unofficial_Patch/python",
       "sha256": "897489ba3de48246a8be278dfd41b219b5ac745006c3e0deef19e5181b2af28e",
       "bytes": 552831397,
-      "files": 14939
+      "files": 14939,
+      "requiredFix": {
+        "file": "vtmb-new-game-fix-0.1.0.zip",
+        "sha256": "e7b5e78ec01eb76f4df61b757092a8a3194cce0f58425193b78dd5daf928ab12",
+        "bytes": 496,
+        "download": "https://github.com/alex-nax/resource/releases/download/v0.1.0/vtmb-new-game-fix-0.1.0.zip",
+        "extractInto": "/sdcard/vtmb"
+      }
     }
   ]
 }

@@ -22,6 +22,11 @@
       "file": "vtmb-re_source-0-1-0-openal-relink.zip",
       "sha256": "2ce67875c419691dc23125f50a2aacb94cf512ebd92771ae76b9612e61172ef9",
       "bytes": 36439515
+    },
+    {
+      "file": "vtmb-new-game-fix-0.1.0.zip",
+      "sha256": "e7b5e78ec01eb76f4df61b757092a8a3194cce0f58425193b78dd5daf928ab12",
+      "bytes": 496
     }
   ]
 }

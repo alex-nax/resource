@@ -13,6 +13,11 @@ compiled Python 2.1 modules alongside their sources under `vtmb/Unofficial_Patch
 readme under `vtmb/credits`, and a file-by-file SHA256 manifest. It contains no original
 `Vampire` directory, native game executables, saves or personal settings.
 
+For release 0.1.0, also apply the small
+[New Game fix ZIP](https://github.com/alex-nax/resource/releases/download/v0.1.0/vtmb-new-game-fix-0.1.0.zip)
+inside your `vtmb` folder. It supplies the patch's missing startup configuration
+at `Unofficial_Patch/scripts/liblist.gam`; the APK and original pack stay the same.
+
 Obtain a **legal Steam/GOG copy of Bloodlines** separately, then follow
 [the installation instructions](../../instructions.md). Keep Basic/Plus selection
 within the modes supported by the in-game menu for this pack. Do not combine these

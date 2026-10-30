@@ -18,6 +18,9 @@ installer with APK installation and headset file management.
    `/sdcard/vtmb`. Then close the app before copying files.
 4. **Extract the patch ZIP** on your computer. It contains a folder named `vtmb`.
    The patch is by **Wesp5** and already includes all compiled scripts, ready to use.
+   For release 0.1.0, also extract
+   [the New Game fix ZIP](https://github.com/alex-nax/resource/releases/download/v0.1.0/vtmb-new-game-fix-0.1.0.zip)
+   **inside that `vtmb` folder**, merging its `Unofficial_Patch` folder.
 5. **Copy your game's entire `Vampire` folder** into that extracted `vtmb` folder,
    alongside `Unofficial_Patch`. Copy it; keep your original installation intact.
 6. **Copy the contents of `vtmb` to the headset** with SideQuest's file manager.
@@ -39,6 +42,12 @@ Your headset should contain:
 If the setup screen remains, check that `Vampire/pack000.vpk` is directly inside
 `/sdcard/vtmb/Vampire`, that file access is allowed, and that the copy completed.
 Avoid an extra nested `vtmb/vtmb` folder. Restart after copying files.
+
+**Already installed 0.1.0, but New Game only makes a sound?** Extract the
+[New Game fix ZIP](https://github.com/alex-nax/resource/releases/download/v0.1.0/vtmb-new-game-fix-0.1.0.zip)
+and use SideQuest to copy its `Unofficial_Patch` folder into `/sdcard/vtmb`.
+The resulting file must be `/sdcard/vtmb/Unofficial_Patch/scripts/liblist.gam`.
+Close and reopen the game. No APK reinstall or full patch download is needed.
 
 For updates, install the new APK over the existing app with SideQuest. Do not
 uninstall the app or clear its storage: that removes its private saves/settings.
