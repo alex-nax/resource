@@ -1,0 +1,27 @@
+{
+  "version": "0.1.0",
+  "versionCode": 1,
+  "apk": "vtmb-re_source-0-1-0.apk",
+  "releaseUrl": "https://github.com/alex-nax/resource/releases/tag/v0.1.0",
+  "engineRevision": "7aebef4248f7873c65299ce8a406c097ca58a235",
+  "buildType": "Release",
+  "debuggable": false,
+  "reportingEnabled": true,
+  "assets": [
+    {
+      "file": "vtmb-re_source-0-1-0.apk",
+      "sha256": "a520a5ad063cff06007e83a97eb46fb80228f479008be3ceaab5382683a50629",
+      "bytes": 22179877
+    },
+    {
+      "file": "resource-unofficial-patch-11.5-resource.20261030-sidequest.zip",
+      "sha256": "897489ba3de48246a8be278dfd41b219b5ac745006c3e0deef19e5181b2af28e",
+      "bytes": 552831397
+    },
+    {
+      "file": "vtmb-re_source-0-1-0-openal-relink.zip",
+      "sha256": "2ce67875c419691dc23125f50a2aacb94cf512ebd92771ae76b9612e61172ef9",
+      "bytes": 36439515
+    }
+  ]
+}
