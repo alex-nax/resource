@@ -18,9 +18,9 @@ Bloodlines 2 is a different game and cannot supply these files.
 ## Downloads
 
 [Download the Vulkan APK and Unofficial Patch pack](https://github.com/alex-nax/resource/releases/latest).
-Releases include SHA256 checksums and dependency source/relink materials.
-The APK filename follows `vtmb-re_source-MAJOR-MINOR-PATCH.apk`; the initial
-release is `vtmb-re_source-0-1-0.apk` (SemVer `0.1.0`).
+Releases include SHA256 checksums and dependency source and license materials.
+The APK filename follows `vtmb-re_source-MAJOR-MINOR-PATCH.apk`; the current
+release is `vtmb-re_source-0-1-1.apk` (SemVer `0.1.1`).
 GitHub's automatic source-code ZIP is documentation/tools, not an installed game.
 
 Expect weekly releases. **Bug reports are crucial to development.** Please use
@@ -46,3 +46,6 @@ The pack preserves his original readme and contributor acknowledgments.
 Bloodlines is owned by its respective rights holders. This is an unofficial fan
 project, not an official Troika, Activision or World of Darkness product.
 See [third-party notices](THIRD-PARTY-NOTICES.md) and [licenses](licenses/README.md).
+
+See the [changelog](CHANGELOG.md). Upgrading from 0.1.0 with the New Game fix
+already installed requires only the new APK.

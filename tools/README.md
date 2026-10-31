@@ -44,8 +44,9 @@ The small `pycompile/` helpers are ReSource build tools, not game script sources
 the player installation procedure. Players copy the single `vtmb` folder using
 SideQuest, following [the installation instructions](../instructions.md).
 
-## OpenAL relinking
+## OpenAL source and legacy relinking
 
-`relink_openal.py` consumes the object files and recipe from the matching release's
-OpenAL source/relink archive. Follow the archive's README to rebuild the library
-and relink a modified APK. This is optional developer tooling, not a player step.
+`relink_openal.py` is for the historical 0.1.0 source/relink archive.
+Releases from 0.1.1 dynamically link OpenAL and provide its source and rebuild
+recipe instead; they do not need this tool. Follow the archive's README to rebuild the library,
+replace it in a copy of the APK, and sign that modified APK. This is optional developer tooling, not a player step.

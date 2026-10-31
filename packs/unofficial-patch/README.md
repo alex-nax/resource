@@ -5,7 +5,7 @@
 ReSource supplies the packaging and Python bytecode conversion.
 
 This pack is built from the currently tested 11.5-generation local installation,
-identified as `11.5-resource.20261030-sidequest`. This label identifies our tested snapshot,
+identified as `11.5-resource.20261031-sidequest`. This label identifies our tested snapshot,
 not a claim that it is Wesp5's latest upstream release.
 
 The ZIP contains the patch data under `vtmb/Unofficial_Patch`, all **35** matching
@@ -13,10 +13,10 @@ compiled Python 2.1 modules alongside their sources under `vtmb/Unofficial_Patch
 readme under `vtmb/credits`, and a file-by-file SHA256 manifest. It contains no original
 `Vampire` directory, native game executables, saves or personal settings.
 
-For release 0.1.0, also apply the small
-[New Game fix ZIP](https://github.com/alex-nax/resource/releases/download/v0.1.0/vtmb-new-game-fix-0.1.0.zip)
-inside your `vtmb` folder. It supplies the patch's missing startup configuration
-at `Unofficial_Patch/scripts/liblist.gam`; the APK and original pack stay the same.
+The 0.1.1 pack includes the startup configuration at
+`Unofficial_Patch/scripts/liblist.gam`, fixing New Game on clean installations.
+No separate fix ZIP is needed. If you already installed the 0.1.0 pack plus its
+New Game fix, keep those files and install only the new APK.
 
 Obtain a **legal Steam/GOG copy of Bloodlines** separately, then follow
 [the installation instructions](../../instructions.md). Keep Basic/Plus selection

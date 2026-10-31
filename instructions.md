@@ -18,9 +18,7 @@ installer with APK installation and headset file management.
    `/sdcard/vtmb`. Then close the app before copying files.
 4. **Extract the patch ZIP** on your computer. It contains a folder named `vtmb`.
    The patch is by **Wesp5** and already includes all compiled scripts, ready to use.
-   For release 0.1.0, also extract
-   [the New Game fix ZIP](https://github.com/alex-nax/resource/releases/download/v0.1.0/vtmb-new-game-fix-0.1.0.zip)
-   **inside that `vtmb` folder**, merging its `Unofficial_Patch` folder.
+   The current pack includes the New Game fix; no extra fix ZIP is needed.
 5. **Copy your game's entire `Vampire` folder** into that extracted `vtmb` folder,
    alongside `Unofficial_Patch`. Copy it; keep your original installation intact.
 6. **Copy the contents of `vtmb` to the headset** with SideQuest's file manager.
@@ -43,11 +41,19 @@ If the setup screen remains, check that `Vampire/pack000.vpk` is directly inside
 `/sdcard/vtmb/Vampire`, that file access is allowed, and that the copy completed.
 Avoid an extra nested `vtmb/vtmb` folder. Restart after copying files.
 
-**Already installed 0.1.0, but New Game only makes a sound?** Extract the
-[New Game fix ZIP](https://github.com/alex-nax/resource/releases/download/v0.1.0/vtmb-new-game-fix-0.1.0.zip)
-and use SideQuest to copy its `Unofficial_Patch` folder into `/sdcard/vtmb`.
-The resulting file must be `/sdcard/vtmb/Unofficial_Patch/scripts/liblist.gam`.
-Close and reopen the game. No APK reinstall or full patch download is needed.
+## Updating to 0.1.1
+
+**Already installed the Unofficial Patch pack and the New Game fix? Download and
+install only `vtmb-re_source-0-1-1.apk`.** Your existing game and patch files are
+compatible; you do not need to download or copy the pack again.
+
+If you have the original 0.1.0 pack **without** its New Game fix, download the
+updated Unofficial Patch ZIP too and merge its `vtmb` contents into `/sdcard/vtmb`
+with SideQuest. The updated pack includes `Unofficial_Patch/scripts/liblist.gam`.
+Fresh installations use the APK and updated pack in the steps above; there is
+no separate fix archive to install.
+
+See the [changelog](CHANGELOG.md) for what changed.
 
 For updates, install the new APK over the existing app with SideQuest. Do not
 uninstall the app or clear its storage: that removes its private saves/settings.

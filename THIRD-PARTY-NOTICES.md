@@ -13,4 +13,5 @@ The offline script compiler uses the player's own `vampire_python21.dll`; this D
 and the original engine executables are not shipped with these tools.
 
 Dependency notices are included in the APK and in [licenses/](licenses/README.md).
-The matching OpenAL source/relink archive accompanies the release assets.
+OpenAL Soft is dynamically linked. Its matching source, local changes and build
+recipe accompany the release assets; no application relink archive is needed.

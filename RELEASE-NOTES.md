@@ -1,5 +1,16 @@
 # Release notes
 
+## 0.1.1 hotfix
+
+Fixes the Gimble intercom control lock, adds an optional first-person hair setting,
+and includes the New Game fix in the updated Unofficial Patch pack. OpenAL is
+now dynamically linked. See the [changelog](CHANGELOG.md) for details.
+
+If you already installed the 0.1.0 pack and New Game fix, **install only the new
+APK** over the existing app. Fresh installs need the APK and updated pack.
+Follow the [installation instructions](instructions.md); retain your saves and
+settings by keeping the existing app installed.
+
 ## Initial Quest Vulkan release
 
 VtMB VR [re:Source] runs on Quest with your legally obtained Steam or GOG copy of

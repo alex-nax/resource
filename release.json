@@ -1,32 +1,28 @@
 {
-  "version": "0.1.0",
-  "versionCode": 1,
-  "apk": "vtmb-re_source-0-1-0.apk",
-  "releaseUrl": "https://github.com/alex-nax/resource/releases/tag/v0.1.0",
-  "engineRevision": "7aebef4248f7873c65299ce8a406c097ca58a235",
+  "version": "0.1.1",
+  "versionCode": 2,
+  "apk": "vtmb-re_source-0-1-1.apk",
+  "releaseUrl": "https://github.com/alex-nax/resource/releases/tag/v0.1.1",
+  "engineRevision": "5c32e495a726a5e20004c77d1cc4bc9e5ff5c18f",
+  "engineSourceFingerprint": "d14a740808203d8cf44ac866b31bfdaea0b13a514407d77df0d407ae52eeb91b",
   "buildType": "Release",
   "debuggable": false,
   "reportingEnabled": true,
   "assets": [
     {
-      "file": "vtmb-re_source-0-1-0.apk",
-      "sha256": "a520a5ad063cff06007e83a97eb46fb80228f479008be3ceaab5382683a50629",
-      "bytes": 22179877
+      "file": "vtmb-re_source-0-1-1.apk",
+      "sha256": "650ee7224c19c70eb16119ea1936296b5f4cde6a6c44c15fe85a8297f54dbd62",
+      "bytes": 22114413
     },
     {
-      "file": "resource-unofficial-patch-11.5-resource.20261030-sidequest.zip",
-      "sha256": "897489ba3de48246a8be278dfd41b219b5ac745006c3e0deef19e5181b2af28e",
-      "bytes": 552831397
+      "file": "resource-unofficial-patch-11.5-resource.20261031-sidequest.zip",
+      "sha256": "cb8b09bbdc14961e72bb4386831a0baa9afd8ba3b85b4f5e7b4aeaaa5e2b188b",
+      "bytes": 552831957
     },
     {
-      "file": "vtmb-re_source-0-1-0-openal-relink.zip",
-      "sha256": "2ce67875c419691dc23125f50a2aacb94cf512ebd92771ae76b9612e61172ef9",
-      "bytes": 36439515
-    },
-    {
-      "file": "vtmb-new-game-fix-0.1.0.zip",
-      "sha256": "e7b5e78ec01eb76f4df61b757092a8a3194cce0f58425193b78dd5daf928ab12",
-      "bytes": 496
+      "file": "vtmb-re_source-0-1-1-openal-source.zip",
+      "sha256": "6810a3683305ffe3843fc5f68f1ba2e192a74640ae10a58f9c1c693121026d51",
+      "bytes": 1696581
     }
   ]
 }
