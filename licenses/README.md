@@ -8,6 +8,11 @@ Vulkan build inputs. [manifest.json](manifest.json) records their source revisio
 and SHA256 values. These include OpenAL Soft, OpenXR, Jolt, GLM, mimalloc, miniz,
 stb, dr_libs and microui.
 
+[companion/](companion/) holds notices for the companion app only, which is not part
+of the APK: Inter Regular (SIL OFL 1.1) is embedded in that binary. The Windows app also
+ships innoextract, with its license texts in an `innoextract-licenses` folder beside it;
+see [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md).
+
 The APK also contains these notices under `assets/third-party/`.
 OpenAL Soft is dynamically linked as `libopenal.so` in 0.1.1 and later.
 The matching `vtmb-re_source-0-1-1-openal-source.zip` contains its exact source,

@@ -7,8 +7,10 @@ is required. Maintainers need Python 3.9+ for the tools below.
 ## Verify or build the Unofficial Patch pack
 
 `build_pack.py verify PACK.zip` checks every declared file hash and script coverage.
-The build command takes an installed patch, a fresh compiler result, and the
-original Wesp5 readme. It excludes personal saves/configuration and native programs,
+Run `prepare_variants.py` first on the patch installer unpacked with `innoextract --collisions rename`: it writes the
+Plus overlay that `--plus-variant` takes. The build command takes an installed patch, a fresh compiler result, the
+original Wesp5 readme, and `--game` plus `--extractor` (`vtmb-modconv`), which extract the data the port
+needs from the patch's DLLs. It excludes personal saves/configuration and native programs, DLLs included,
 refuses stale/missing bytecode and never overwrites an existing output.
 Supply the patch installer's `Vampire/scripts/liblist.gam` with `--game-info` if
 the overlay lacks it. Both configured launch maps must exist in the patch.

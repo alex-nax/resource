@@ -5,6 +5,9 @@
 [GOG](https://www.gog.com/en/game/vampire_the_masquerade_bloodlines), and install it
 on your computer.** Bloodlines 2 is a different game.
 
+**The easy way on Windows:** the [Companion app](COMPANION.md) does every step below over a USB cable,
+and updates the game later. The steps below do the same by hand with SideQuest.
+
 You need [SideQuest for your computer](https://sidequestvr.com/setup-howto),
 a USB cable, and developer mode enabled on your Quest. Use SideQuest's desktop
 installer with APK installation and headset file management.
@@ -17,8 +20,8 @@ installer with APK installation and headset file management.
    the system screen. Return to the app (or close and reopen it) so it creates
    `/sdcard/vtmb`. Then close the app before copying files.
 4. **Extract the patch ZIP** on your computer. It contains a folder named `vtmb`.
-   The patch is by **Wesp5** and already includes all compiled scripts, ready to use.
-   The current pack includes the New Game fix; no extra fix ZIP is needed.
+   The patch is by **Werner Spahl (Wesp5)** and already includes all compiled scripts, ready to use.
+   It holds both Basic and Plus; choose one in the game's Mods menu.
 5. **Copy your game's entire `Vampire` folder** into that extracted `vtmb` folder,
    alongside `Unofficial_Patch`. Copy it; keep your original installation intact.
 6. **Copy the contents of `vtmb` to the headset** with SideQuest's file manager.
@@ -39,24 +42,29 @@ Your headset should contain:
 
 If the setup screen remains, check that `Vampire/pack000.vpk` is directly inside
 `/sdcard/vtmb/Vampire`, that file access is allowed, and that the copy completed.
+If it says **File access required**, the game cannot write saves to
+`/sdcard/vtmb/saves`: allow file access, or free up headset space, then restart the app.
 Avoid an extra nested `vtmb/vtmb` folder. Restart after copying files.
 
-## Updating to 0.1.1
+## Updating from 0.1.1 to 0.1.2
 
-**Already installed the Unofficial Patch pack and the New Game fix? Download and
-install only `vtmb-re_source-0-1-1.apk`.** Your existing game and patch files are
-compatible; you do not need to download or copy the pack again.
+0.1.2 needs **both** the new APK and the new Unofficial Patch pack.
 
-If you have the original 0.1.0 pack **without** its New Game fix, download the
-updated Unofficial Patch ZIP too and merge its `vtmb` contents into `/sdcard/vtmb`
-with SideQuest. The updated pack includes `Unofficial_Patch/scripts/liblist.gam`.
-Fresh installations use the APK and updated pack in the steps above; there is
-no separate fix archive to install.
+1. **Install `vtmb-re_source-0-1-2.apk` as an update** over the existing app. **Do not
+   uninstall 0.1.1 first:** uninstalling deletes its private saves.
+2. **Launch it once** and allow file access if asked. Your saves are copied from the app's
+   private storage to `/sdcard/vtmb/saves`. Then close the app.
+3. **Install the new pack:** extract the new patch ZIP on your computer and copy the contents
+   of its `vtmb` folder into `/sdcard/vtmb`, replacing when asked. Nothing needs deleting, and
+   you do not need to copy `Vampire` again. Until the new pack is in place, the game asks for it.
+
+The Companion does all three steps with **Set up everything left**.
 
 See the [changelog](CHANGELOG.md) for what changed.
 
 For updates, install the new APK over the existing app with SideQuest. Do not
-uninstall the app or clear its storage: that removes its private saves/settings.
+uninstall the app or clear its storage: that removes its settings and the private
+copy of older saves. Saves live in `/sdcard/vtmb/saves`, and a PC can copy them.
 Keep a backup before changing patch versions. Use one supplied mod pack at a time.
 
 Read the [known limitations](KNOWN-LIMITATIONS.md) before playing. Bug reports

@@ -26,6 +26,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tarfile
 import tempfile
 
 SOURCE_DIRS = ("Vampire", "Unofficial_Patch")
@@ -35,15 +36,14 @@ DEFAULT_DEST = "/sdcard/vtmb"
 DEFAULT_STAGING = os.path.join(".cache", "quest-deploy-staging")
 
 # Excludes (spec: docs/specs/feature-730.md) — Windows x86 binaries our engine never loads,
-# saves (both roots; device saves must never be clobbered), OS noise.
-_EXCLUDE_SUBDIRS = {"Vampire": {"dlls", "cl_dlls", "save"}, "Unofficial_Patch": {"save"}}
+# saves (both roots; device saves must never be clobbered), OS noise. The tables the engine needs from
+# the DLLs are extracted instead (docs/specs/maintenance-2026-11-05-native-tables.md); `derived` is that
+# output, excluded so verify ignores it on the device. DLLs already on a device are left alone.
+_EXCLUDE_SUBDIRS = {"Vampire": {"dlls", "cl_dlls", "derived", "save"}, "Unofficial_Patch": {"derived", "save"}}
 _EXCLUDE_NAMES = {".DS_Store", "Thumbs.db"}
 
 
 def is_excluded(rel):
-    # F1022: read-only source of the terminal bitmap; never loaded as executable code.
-    if rel.lower() in {"vampire/cl_dlls/client.dll", "vampire/cl_dlls/client.dll.12"}:
-        return False
     parts = rel.split("/")
     if parts[0] in _EXCLUDE_SUBDIRS and len(parts) > 2 and parts[1] in _EXCLUDE_SUBDIRS[parts[0]]:
         return True
@@ -70,15 +70,39 @@ def build_manifest(source):
     return manifest, excluded
 
 
-def required_manifest(source):
+def find_extractor(explicit, search_dirs=("build-vk", "build", "."), path_lookup=shutil.which):
+    """The command that extracts the native tables: vtmb-modconv, the one code path (spec)."""
+    found = explicit or os.environ.get("VTMB_MODCONV") or path_lookup("vtmb-modconv")
+    if not found:
+        for folder in search_dirs:
+            for name in ("vtmb-modconv", "vtmb-modconv.exe"):
+                candidate = os.path.join(folder, name)
+                if os.path.isfile(candidate):
+                    found = candidate
+                    break
+            if found:
+                break
+    if not found:
+        die("vtmb-modconv not found. It extracts the tables the engine needs from your vampire.dll. "
+            "Build it (cmake --build build-vk --target vtmb-modconv) or pass --extractor PATH.")
+    return [os.path.abspath(found) if os.path.isfile(found) else found]
+
+
+def extract_tables(source, out_root, extractor):
+    """rel-path -> (size, mtime) of the extracted files. Stamped with the DLL's mtime so an unchanged
+    DLL does not re-push them. A packed or missing DLL stops the deploy here, not at boot."""
+    proc = run([*extractor, "extract-tables", source, out_root])
+    if proc.stderr.strip():
+        print(proc.stderr.strip(), file=sys.stderr)
+    if proc.returncode != 0:
+        die(f"table extraction failed for {source}: {proc.stderr.strip() or proc.stdout.strip()}")
+    stamp = int(os.stat(os.path.join(source, "Vampire", "dlls", "vampire.dll")).st_mtime)
     manifest = {}
-    for rel in ("Vampire/cl_dlls/client.dll.12", "Vampire/cl_dlls/client.dll"):
-        path = os.path.join(source, rel)
-        if os.path.isfile(path):
-            stat = os.stat(path)
-            manifest[rel] = (stat.st_size, int(stat.st_mtime))
-    if not manifest:
-        die("terminal font source missing: include Vampire/cl_dlls/client.dll or client.dll.12")
+    derived = os.path.join(out_root, "Vampire", "derived")
+    for name in sorted(os.listdir(derived)):
+        path = os.path.join(derived, name)
+        os.utime(path, (stamp, stamp))
+        manifest[f"Vampire/derived/{name}"] = (os.stat(path).st_size, stamp)
     return manifest
 
 
@@ -176,7 +200,17 @@ def diff_manifests(source_manifest, device_map):
     return sorted(changed), sorted(extra)
 
 
-def push_changed(source, dest, changed, dry_run):
+def write_bundle(bundle, roots):
+    """One ustar bundle from files under several roots; `roots` maps rel-path -> its root."""
+    try:
+        with tarfile.open(bundle, "w", format=tarfile.USTAR_FORMAT) as archive:
+            for rel in sorted(roots):
+                archive.add(os.path.join(roots[rel], rel), arcname=rel, recursive=False)
+    except (OSError, ValueError) as error:
+        die(f"tar bundle failed: {error}")
+
+
+def push_changed(source, dest, changed, dry_run, roots=None):
     total = sum(source_size for _, source_size in changed)
     print(f"push plan: {len(changed)} file(s), {total} bytes -> {dest}")
     if not changed:
@@ -196,12 +230,7 @@ def push_changed(source, dest, changed, dry_run):
         die(f"insufficient space on device: {free} free, need ~{need} (bundle + extracted coexist)")
     with tempfile.TemporaryDirectory(prefix="vtmb_deploy_") as tmp:
         bundle = os.path.join(tmp, BUNDLE_NAME)
-        filelist = os.path.join(tmp, "files.txt")
-        with open(filelist, "w", encoding="utf-8") as fh:
-            fh.write("".join(rel + "\n" for rel, _ in changed))
-        proc = run(["tar", "--format=ustar", "-C", source, "-cf", bundle, "-T", filelist])
-        if proc.returncode != 0:
-            die(f"tar bundle failed: {proc.stderr.strip()}")
+        write_bundle(bundle, {rel: (roots or {}).get(rel, source) for rel, _ in changed})
         adb("push", bundle, f"{dest}/{BUNDLE_NAME}")
         adb("shell", f"cd {dest} && tar -xf {BUNDLE_NAME} && rm {BUNDLE_NAME}")
     print(f"pushed {len(changed)} file(s), {total} bytes")
@@ -266,9 +295,17 @@ def cmd_push(args):
     source = resolve_source(args)
     check_anchor(source)
     if args.required_only:
-        manifest = required_manifest(source)
+        manifest = {}
     else:
         manifest, _excluded = build_manifest(source)
+    with tempfile.TemporaryDirectory(prefix="vtmb_tables_") as tables_root:
+        tables = extract_tables(source, tables_root, find_extractor(args.extractor))
+        manifest.update(tables)
+        roots = {rel: tables_root for rel in tables}
+        return push_manifest(args, source, manifest, roots)
+
+
+def push_manifest(args, source, manifest, roots):
     check_ustar_paths(manifest)
     preflight_device()
     # Create dest before anything touches it: toybox `df` on a nonexistent path errors
@@ -277,7 +314,7 @@ def cmd_push(args):
     on_device = device_manifest(args.dest)
     changed_rel, _extra = diff_manifests(manifest, on_device)
     changed = [(rel, manifest[rel][0]) for rel in changed_rel]
-    push_changed(source, args.dest, changed, args.dry_run)
+    push_changed(source, args.dest, changed, args.dry_run, roots)
     if args.dry_run or not changed:
         return 0
     post = device_manifest(args.dest)
@@ -362,7 +399,8 @@ def main():
         if name == "push":
             p.add_argument("--dry-run", action="store_true")
             p.add_argument("--required-only", action="store_true",
-                           help="sync only original runtime font sources; leave other game data untouched")
+                           help="sync only the extracted native tables; leave other game data untouched")
+            p.add_argument("--extractor", help="path to vtmb-modconv, which extracts the native tables")
     args = parser.parse_args()
     return {"scan": cmd_scan, "push": cmd_push, "verify": cmd_verify}[args.cmd](args)
 

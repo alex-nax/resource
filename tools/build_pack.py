@@ -7,16 +7,30 @@ from pathlib import Path, PurePosixPath
 import re
 import shutil
 import struct
+import subprocess
+import tempfile
 import zipfile
 
 PY21_MAGIC = struct.pack("<H", 60202) + b"\r\n"
 AUTHOR = "Werner Spahl (Wesp5)"
 UP_PREFIX = "vtmb/Unofficial_Patch/"
 PYC_PREFIX = UP_PREFIX + "python/"
-EXCLUDED_DIRS = {"save", "saves", "profiles", "screenshots", "logs", "crashes", "dlls", "cl_dlls", "bin"}
+EXCLUDED_DIRS = {"save", "saves", "profiles", "screenshots", "logs", "crashes", "dlls", "cl_dlls", "bin", "derived"}
 EXCLUDED_NAMES = {"config.cfg", "settings.cfg", "autoexec-personal.cfg", "thumbs.db", "desktop.ini"}
 NATIVE_SUFFIXES = {".exe", ".dll", ".asi", ".so", ".dylib", ".vtm"}
 GAME_INFO = "scripts/liblist.gam"
+# Data the port needs from the patch's DLLs, extracted at build. No DLL ever ships. Spec:
+# docs/specs/maintenance-2026-11-05-native-tables.md. Only this pack carries them, only in its output.
+SCHEDULES = "derived/schedules.txt"
+TERMINAL_FONT = "derived/terminal_font.txt"
+TABLE_HEADER = b"vtmb-schedule-cache 1 "
+TABLE_NAMES = {UP_PREFIX + SCHEDULES, UP_PREFIX + TERMINAL_FONT}
+# What Plus changes or adds, over the Basic tree. Spec: docs/specs/maintenance-2026-11-05-patch-variants.md.
+PLUS_PREFIX = UP_PREFIX + "variants/plus/"
+PLUS_REFUSED = {"python", "maps"}
+# Bumped when a game version can no longer run on older packs. 1 is every pack without this field.
+PACK_FORMAT = 2
+DIST = Path(__file__).resolve().parents[1] / "dist"
 
 
 def check_game_info(data, names):
@@ -94,6 +108,11 @@ def allowed_member(name):
         return False
     if name in {"vtmb/credits/VTMBup-readme.txt", "vtmb/credits/compiler-receipt.json"}:
         return True
+    if name in TABLE_NAMES:
+        return True
+    if name.startswith(PLUS_PREFIX):
+        rel = name[len(PLUS_PREFIX):]
+        return not excluded(rel) and PurePosixPath(rel).parts[0].lower() not in PLUS_REFUSED
     if name.startswith(UP_PREFIX):
         return not excluded(name[len(UP_PREFIX):])
     return name.startswith(PYC_PREFIX) and name.endswith(".pyc") and not excluded(name[len(PYC_PREFIX):])
@@ -109,6 +128,8 @@ def verify(archive_path):
         manifest = json.loads(archive.read("vtmb/pack.json"))
         if manifest.get("schemaVersion") != 1 or manifest.get("id") != "unofficial-patch":
             raise ValueError("unsupported pack manifest")
+        if manifest.get("packFormat") != PACK_FORMAT:
+            raise ValueError(f"pack format must be {PACK_FORMAT}")
         if manifest.get("author") != AUTHOR:
             raise ValueError("missing Wesp5 attribution")
         rows = manifest["files"]
@@ -118,6 +139,14 @@ def verify(archive_path):
         if UP_PREFIX + GAME_INFO not in names:
             raise ValueError(f"missing {GAME_INFO}")
         check_game_info(archive.read(UP_PREFIX + GAME_INFO), names)
+        if UP_PREFIX + SCHEDULES not in names or not archive.read(UP_PREFIX + SCHEDULES).startswith(TABLE_HEADER):
+            raise ValueError(f"missing or unknown {SCHEDULES}")
+        if PLUS_PREFIX + "cfg/user.cfg" not in names or manifest.get("variants") != ["basic", "plus"]:
+            raise ValueError("the Plus variant is missing")
+        sources_declared = manifest.get("extractedFrom")
+        if not sources_declared or not all(re.fullmatch("[0-9a-f]{64}", row.get("sha256", ""))
+                                           for row in sources_declared):
+            raise ValueError("extracted data must name its source hashes")
         sources, compiled = set(), set()
         for row in rows:
             name = row["path"]
@@ -150,8 +179,23 @@ def verify(archive_path):
         return manifest
 
 
-def build(source, compiled_root, readme, output, version, game_info=None):
-    source, compiled_root, readme, output = map(Path, (source, compiled_root, readme, output))
+def extract_tables(game, extractor, out_root):
+    """The one extraction path: vtmb-modconv. Returns [{dll, sha256}]; a packed DLL stops the build."""
+    command = str(Path(extractor).resolve()) if Path(extractor).exists() else extractor
+    proc = subprocess.run([command, "extract-tables", str(game), str(out_root)], capture_output=True, text=True)
+    if proc.returncode != 0:
+        raise ValueError(f"table extraction failed: {proc.stderr.strip() or proc.stdout.strip()}")
+    rows = []
+    for line in proc.stdout.splitlines():
+        parts = line.split(" ", 2)
+        if len(parts) == 3 and parts[0] == "source":
+            rows.append({"dll": parts[2], "sha256": parts[1]})
+    return rows
+
+
+def build(source, compiled_root, readme, output, version, tables, extracted_from, plus_variant, game_info=None):
+    """`tables` is the extractor's output root and `extracted_from` the rows extract_tables returned."""
+    source, compiled_root, readme, output, tables = map(Path, (source, compiled_root, readme, output, tables))
     if output.exists():
         raise FileExistsError(output)
     if source.name.lower() == "vampire":
@@ -160,7 +204,7 @@ def build(source, compiled_root, readme, output, version, game_info=None):
         raise ValueError("the original Wesp5 readme is required")
     info_path = game_info_entries(source, game_info)
     entries = [(UP_PREFIX + rel, path) for rel, path in files_under(source)
-               if rel.lower() != GAME_INFO and not excluded(rel)
+               if rel.lower() != GAME_INFO and not excluded(rel) and not rel.lower().startswith("variants/")
                and not (rel.startswith("python/") and rel.endswith(".pyc"))]
     entries.append((UP_PREFIX + GAME_INFO, info_path))
     sources = {name[len(UP_PREFIX + "python/"):-3] for name, _ in entries
@@ -180,13 +224,19 @@ def build(source, compiled_root, readme, output, version, game_info=None):
         raise ValueError("stale compiler receipt: sources changed; recompile")
     entries.append(("vtmb/credits/compiler-receipt.json", receipt_path))
     entries.append(("vtmb/credits/VTMBup-readme.txt", readme))
+    entries += [(PLUS_PREFIX + rel, path) for rel, path in files_under(Path(plus_variant)) if not excluded(rel)]
+    for rel in (SCHEDULES, TERMINAL_FONT):
+        if (tables / "Vampire" / rel).is_file():
+            entries.append((UP_PREFIX + rel, tables / "Vampire" / rel))
     entries.sort()
     manifest = {"schemaVersion": 1, "id": "unofficial-patch", "version": version,
+                "patchVersion": version.split("-")[0],
                 "name": "Unofficial Patch", "author": AUTHOR,
                 "homepage": "https://www.moddb.com/mods/vtmb-unofficial-patch",
                 "requires": {"game": "Vampire: The Masquerade - Bloodlines", "legalCopy": True,
                              "stores": ["Steam", "GOG"]},
-                "compiledScripts": len(compiled), "pythonMagic": 60202,
+                "packFormat": PACK_FORMAT, "compiledScripts": len(compiled), "pythonMagic": 60202,
+                "extractedFrom": extracted_from, "variants": ["basic", "plus"],
                 "files": [{"path": name, "bytes": path.stat().st_size, "sha256": digest_file(path)}
                           for name, path in entries]}
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -210,9 +260,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     make = commands.add_parser("build")
-    for name in ("source", "compiled", "readme", "output", "version"):
+    for name in ("source", "compiled", "readme", "version"):
         make.add_argument("--" + name, required=True)
+    make.add_argument("--output", help="default: public/dist/resource-unofficial-patch-<version>.zip")
     make.add_argument("--game-info", type=Path)
+    make.add_argument("--plus-variant", type=Path, required=True, help="the overlay from prepare_variants.py")
+    make.add_argument("--game", required=True, help="the game folder holding the patch's vampire.dll and client.dll; only their extracted data ships")
+    make.add_argument("--extractor", default="vtmb-modconv", help="path to vtmb-modconv")
     fix = commands.add_parser("game-info-fix")
     for name in ("source", "game-info", "output"):
         fix.add_argument("--" + name, type=Path, required=True)
@@ -227,7 +281,11 @@ def main():
         result = verify(args.archive)
         output = args.archive
     else:
-        result = build(args.source, args.compiled, args.readme, args.output, args.version, args.game_info)
+        args.output = args.output or str(DIST / f"resource-unofficial-patch-{args.version}.zip")
+        with tempfile.TemporaryDirectory(prefix="vtmb_pack_tables_") as tables:
+            rows = extract_tables(args.game, args.extractor, tables)
+            result = build(args.source, args.compiled, args.readme, args.output, args.version, tables, rows,
+                           args.plus_variant, args.game_info)
         output = Path(args.output)
     print(json.dumps({"archive": str(output), "sha256": digest_file(output), "version": result["version"],
                       "files": len(result["files"]), "compiledScripts": result["compiledScripts"]}, indent=2))

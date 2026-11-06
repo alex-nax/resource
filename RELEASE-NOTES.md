@@ -1,5 +1,22 @@
 # Release notes
 
+## 0.1.2
+
+Weapon grips on every weapon, enemies that run the original game's own AI rules, saves
+kept in `/sdcard/vtmb/saves`, a new Unofficial Patch pack with Basic and Plus, and a
+Windows [Companion app](COMPANION.md) that sets everything up. See the
+[changelog](CHANGELOG.md) for the full list and the known issues.
+
+**Upgrading from 0.1.1 needs the new APK and the new pack.** Install the APK as an
+update; **do not uninstall 0.1.1 first**, because that deletes its private saves. Launch
+it once with file access so your saves are copied to `/sdcard/vtmb/saves`, then copy the
+new pack's `vtmb` contents into `/sdcard/vtmb`. The game asks for the new pack until it
+is installed. The Companion does all of this with **Set up everything left**. Follow the
+[installation instructions](instructions.md).
+
+The Unofficial Patch is by **Werner Spahl (Wesp5)** and contributors. You need a legal
+Steam or GOG copy of Bloodlines (2004).
+
 ## 0.1.1 hotfix
 
 Fixes the Gimble intercom control lock, adds an optional first-person hair setting,

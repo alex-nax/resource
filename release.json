@@ -1,28 +1,41 @@
 {
-  "version": "0.1.1",
-  "versionCode": 2,
-  "apk": "vtmb-re_source-0-1-1.apk",
-  "releaseUrl": "https://github.com/alex-nax/resource/releases/tag/v0.1.1",
-  "engineRevision": "5c32e495a726a5e20004c77d1cc4bc9e5ff5c18f",
-  "engineSourceFingerprint": "d14a740808203d8cf44ac866b31bfdaea0b13a514407d77df0d407ae52eeb91b",
+  "version": "0.1.2",
+  "versionCode": 12,
+  "apk": "vtmb-re_source-0-1-2.apk",
+  "releaseUrl": "https://github.com/alex-nax/resource/releases/tag/v0.1.2",
+  "engineRevision": "f1c8a73d4f3e92d4cf2f51d890e9daa5c65a1737",
+  "engineSourceFingerprint": "c8656b9c050e130be9818cbf38b1f71557a8ade494ce2ac0f7efbbd1b0184048",
+  "requiredPackFormat": 2,
   "buildType": "Release",
   "debuggable": false,
   "reportingEnabled": true,
+  "companion": {
+    "version": "0.2.0",
+    "releaseUrl": "https://github.com/alex-nax/resource/releases/tag/v0.2.0-companion",
+    "platforms": [
+      "windows-x64"
+    ]
+  },
   "assets": [
     {
-      "file": "vtmb-re_source-0-1-1.apk",
-      "sha256": "650ee7224c19c70eb16119ea1936296b5f4cde6a6c44c15fe85a8297f54dbd62",
-      "bytes": 22114413
+      "file": "vtmb-re_source-0-1-2.apk",
+      "sha256": "379e99f23491009e748bfae42e9954707d775691793fa11e574098305518ab73",
+      "bytes": 24482202
     },
     {
-      "file": "resource-unofficial-patch-11.5-resource.20261031-sidequest.zip",
-      "sha256": "cb8b09bbdc14961e72bb4386831a0baa9afd8ba3b85b4f5e7b4aeaaa5e2b188b",
-      "bytes": 552831957
+      "file": "resource-unofficial-patch-11.5-resource.20261106c-sidequest.zip",
+      "sha256": "0fedd0a52f3d15440162db7e810535c27e93df017da932d93a76503a5f1f6eba",
+      "bytes": 757095260
     },
     {
-      "file": "vtmb-re_source-0-1-1-openal-source.zip",
-      "sha256": "6810a3683305ffe3843fc5f68f1ba2e192a74640ae10a58f9c1c693121026d51",
-      "bytes": 1696581
+      "file": "vtmb-companion-0-2-0-windows-x64.zip",
+      "sha256": "54d956e232ccd66739db1bdf1eae94063041f6871ed00c821c3626ec411ebf4d",
+      "bytes": 4732138
+    },
+    {
+      "file": "vtmb-re_source-0-1-2-openal-source.zip",
+      "sha256": "92156adf95b88a1c2db3f9f707327ce1d6cb77730a40d05192267b04536b2423",
+      "bytes": 1696580
     }
   ]
 }
