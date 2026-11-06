@@ -12,12 +12,10 @@ file access. See the [installation instructions](instructions.md), or let the [C
   with the fingers closed on the handle and the elbow bending naturally.
 - **Two-hand holds:** long melee weapons and long guns take the two-hand stance the original's characters use. Pistols
   and short SMGs are cupped by the other hand.
-- **Melee handles:** the katana and other blades sit on their handles in the fist again, and in the left hand the edge
-  faces the target.
-- **Gun aim:** the second hand no longer pulls the hand that holds the gun. The barrel stays on the main controller's
-  aim, and the crosshair is drawn along the barrel, where the shot goes.
+- **Blades in the left hand:** the knife's and katana's edge faces the target, not you.
+- **Gun aim:** the second hand no longer pulls the hand that holds the gun, and the crosshair is drawn along the
+  barrel, where the shot goes.
 - **Steadier guns:** a held gun no longer shakes in the hand.
-- **No slowdown when drawing a gun:** equipping a pistol or SMG cost up to 13 ms of every frame; that is fixed.
 
 #### Enemies and characters
 
@@ -26,8 +24,7 @@ Characters now run the original game's own AI rules, read from its code, instead
 - **Schedules and tasks:** NPCs follow the original game's schedule and task lists, so they patrol, investigate, hunt, take cover, flee and cower as in the original.
 - **One navigator for all movement:** characters plan routes on the map's own node graph, open doors on the way, step up and down ledges, cross narrow gaps, jump where the map allows it and stop at edges they can't cross.
 - **Senses:** the original sight cone (157 degrees), the original light-based stealth, and hearing. Gunshots and fights are heard and investigated.
-- **Gunshots are followed up:** enemies who hear your shot run to where it came from, also along ledges and docks,
-  and a wounded companion's cry no longer makes them forget it.
+- **Gunshots are followed up:** enemies who hear your shot run to where it came from.
 - **Memory and the hunt:** an enemy who loses sight of you searches where he last saw you, looks around, and gives up after the original's delays.
 - **Melee groups:** enemies take turns to attack. When three or more fight you, the ones waiting take over after a
   combo instead of standing and watching; while they wait they circle and hold their weapons ready. Step-backs and retreats stop at furniture.
@@ -35,7 +32,7 @@ Characters now run the original game's own AI rules, read from its code, instead
 - **Reactions:** enemies respond to being hit with the original's rules. NPCs fight each other according to their factions. Civilians flee crimes and Nosferatu, and witnesses send the street cops to the place of the crime.
 - **Frenzy:** you can frenzy from hunger, with a red pulse and loss of control. A new game clears frenzy.
 - **Life on the streets:** pedestrians walk their paths and wait at crosswalks. Hub characters vary their idles and turn in place properly. Heads look at what they talk to and what catches their eye. Mouths move for voices played by the map, using the Unofficial Patch's lipsync files.
-- **Specific characters:** dogs chase and bite. Ghouls fight with claws. Grout's crouchers stand and idle on the floor. The warehouse wolf crosses the fence. Rats keep to their usual movement when they hear a gunshot. The garage gunmen and ramp guards behave as in the original.
+- **Specific characters:** dogs chase and bite. Ghouls fight with claws. Grout's crouchers stand and idle on the floor. The warehouse wolf crosses the fence. Rats keep to their usual movement when they hear a gunshot.
 - **Performance:** distant NPCs think less often, as in the original, so big hubs stay smooth.
 
 #### World and physics
@@ -50,12 +47,13 @@ Characters now run the original game's own AI rules, read from its code, instead
 
 - **Saves you can see and keep:** saves live in `/sdcard/vtmb/saves`, outside the app, so they survive reinstalls and can be backed up. Existing saves are copied there by themselves.
 - **One folder per patch:** each patch and variant has its own readable save folder, such as `unofficial_patch-plus-11.5`.
-- **Older saves on Plus:** saves made before the pack carried Plus's files load on Plus. A few extra rounds in a
-  magazine go back to your reserve. A save whose magazine is over by more than a whole magazine is refused as
-  damaged, with a message.
+- **0.1.1 saves on Plus:** saves from 0.1.1 load with the new pack's Plus files. Where Plus's smaller magazine can't
+  hold a saved gun's rounds, the extra rounds go to your reserve. A save whose magazine is over by more than a whole
+  magazine is refused as damaged, with a message.
 - **Save conversion:** the Companion's command-line tool converts saves between the original game and this port, in both directions.
-- **Fixes:** worn armor and scripted model changes are saved and restored correctly. Field saves from 0.1.1 load
-  again. Saves made where the game simulates hanging objects are written correctly and appear in Load Game.
+- **Outfit changes after loading:** a scripted outfit change, such as Heather's, takes effect after you load a save.
+- **Unreadable saves are shown:** a save the game can't read is shown in Load Game as a greyed-out row saying why
+  ("Can't be read by this build" or "Made by a newer build", with its date), instead of disappearing.
 
 #### The Unofficial Patch pack
 
@@ -70,15 +68,12 @@ Characters now run the original game's own AI rules, read from its code, instead
 - **Fixed rendering bugs:**
   - blood no longer leaves a black square on walls
   - see-through surfaces draw in the right order
-  - fences draw correctly
   - water moves smoothly
-  - wet sand no longer shows faceted reflections
 - **Sky and effects:**
   - the 3D sky no longer clips as you turn your head
   - sky particles and the plane's lights fly smoothly
   - the Tremere window glows
   - the lever room's lightning draws
-  - Plus's rain splashes lie flat on the street
 - **HUD:** indicators stay level when you tilt your head.
 - **Models:** models the map marks as hidden stay hidden.
 
@@ -89,6 +84,7 @@ Characters now run the original game's own AI rules, read from its code, instead
 - **Armor:** it is equipped and protects as authored.
 - **Vendors:** stock follows the original's rules.
 - **Quests and scripts:** scripted sequences, Knox's hand-in, moving platforms, hidden brushes and visibility inputs work as authored.
+- **MSAA option:** turning MSAA off in Options no longer hides the option, so it can be turned back on.
 
 #### Companion app (new, Windows)
 
@@ -107,13 +103,13 @@ Characters now run the original game's own AI rules, read from its code, instead
   long gun held in two hands can creep slowly while you stand still.
 - **Fire axe:** a fast two-hand swing can outrun the second hand.
 - **Not done yet:** weapon scopes, and throwing grenades by hand.
-- **Load Game:** a save the game cannot read is left out of the list without a message.
+- **Deleting saves:** saves can't be deleted in the headset yet; delete them on the PC.
 - **Triggers:** because triggers now fire on every touch, sounds, hints and scripted moves at a trigger's edge may repeat.
 - **Lipsync:** models with no face rig, such as Mike, Carl and Al, don't move their mouths.
 - **Physics:** only ball joints are simulated, so props held by other joint types stay still. Some scripted
-  explosions deal no damage, while some scripted prop blasts now do.
-- **Enemies:** Grout's mansion ghouls may not react to you or climb the stairs. The parking garage's MAC-10
-  gunmen fire single shots, and their mates upstairs may stay idle. A frenzy cannot yet end in feeding.
+  explosions deal no damage.
+- **Enemies:** in the parking garage, gunmen upstairs may stay idle while you fight their mates. A frenzy cannot
+  yet end in feeding.
 - **Crashes:** rare crashes have been reported in Downtown's hub and skyline maps.
 - **Testing:** the game has not been tested much beyond arrival in Downtown.
 

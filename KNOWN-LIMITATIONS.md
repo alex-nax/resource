@@ -17,12 +17,12 @@ Open issues in 0.1.2:
   in the armpit, a cupping arm can bend oddly, and a long gun in two hands can creep slowly.
 - A fast two-hand swing with the fire axe can outrun the second hand.
 - Weapon scopes and throwing grenades by hand are not done yet.
-- Load Game leaves out a save it cannot read, without a message.
+- Saves can't be deleted in the headset yet; delete them on the PC.
 - Sounds, hints and scripted moves at a trigger's edge may repeat.
 - Models with no face rig, such as Mike, Carl and Al, don't move their mouths.
 - Only ball joints are simulated; props on other joint types stay still.
-- Grout's mansion ghouls may not react or climb the stairs; the parking garage's gunmen and
-  their mates upstairs need work.
+- In the parking garage, gunmen upstairs may stay idle while you fight their mates. A frenzy
+  cannot yet end in feeding. Some scripted explosions deal no damage.
 - Rare crashes have been reported in Downtown's hub and skyline maps.
 
 Expect weekly releases. **Bug reports are crucial to development:** please use
