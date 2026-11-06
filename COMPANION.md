@@ -31,6 +31,29 @@ Never uninstall the game to update it. Uninstalling erases its private saves.
 
 The **Versions** section of the Setup tab offers a newer Companion when there is one. Press **Update this app**. It checks the download's hash and replaces itself; if anything goes wrong, the version you have stays. Then close it and open it again.
 
+## Making a pack from a newer Unofficial Patch (Windows)
+
+A step-by-step guide with screenshots, saves included: [Upgrading to Unofficial Patch 12.0](UPGRADE-UP12.md).
+
+The Unofficial Patch is by Werner Spahl (Wesp5). Download it from its [own page](https://www.moddb.com/mods/vtmb-unofficial-patch), then run these from the Companion's folder. `<game>` is the folder holding your game's `Vampire` and `Bin`, and the folder after `--out` is where the pack goes.
+
+```
+vtmb-companion-cli pack-prepare <the patch's installer> --game <game> --out <folder>
+vtmb-companion-cli pack-install --from <folder>\vtmb
+```
+
+The first command takes a few minutes and about 3 GB of disk, and reads your own game for what it needs. The pack it makes is for you: it holds the patch's files, so please do not share it. The second copies it to the connected Quest; without `--from` it would install the published pack instead.
+
+### Saves and a new patch version
+
+A save from one patch version will not load on a newer one, because its maps changed. You can start a new game, as the patch's own readme recommends, or repair a copy of the save with the tool beside the Companion:
+
+```
+vtmb-save-repair <save.vtmbsave> --old <old install> --new <new install> --out <folder>
+```
+
+Each install is a folder holding `Unofficial_Patch`: your game folder with that patch installed, or a pack's `vtmb` folder. It writes a new save and a report, and never changes the original. Your character, money, experience, inventory, quests and story flags carry over. Maps that changed too much come back fresh, and the report lists them. This is new and has seen few saves, so keep your original.
+
 ## Saves between the original game and this port
 
 The command-line tool beside the app converts saves in both directions. Run it from the Companion's folder.

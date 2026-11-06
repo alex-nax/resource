@@ -37,6 +37,9 @@ The supplied pack contains its matching compiled Python scripts, credits
 and file checksums. Install one supported game layer at a time; do not mix scripts
 from different mods or patch releases. See the [pack catalog](packs/catalog.json).
 
+To play on a newer Unofficial Patch, make its pack from your own download with the
+Companion: [Upgrading to Unofficial Patch 12.0](UPGRADE-UP12.md), with your saves.
+
 ## Credits
 
 The **Unofficial Patch is authored by Werner Spahl (Wesp5)** with its credited
