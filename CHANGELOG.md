@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.3 - 2026-11-14
+## 0.1.3 - 2026-11-13
 
 **PC VR (Windows) only for now:** Quest 0.1.3 follows after a recheck. Until then the Quest stays on 0.1.2, unchanged.
 
