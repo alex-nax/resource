@@ -6,7 +6,9 @@ You need a legal copy of Bloodlines (2004) from Steam or GOG. The Companion neve
 
 ## Get it
 
-Download `vtmb-companion-0-2-0-windows-x64.zip` from the [releases page](https://github.com/alex-nax/resource/releases), and unpack it to a folder you can write to. Keep the files together.
+PC VR players get the Companion with the game: `vtmb-vr-0.1.3-setup.exe` installs both (see the [PC VR guide](INSTALL-WINDOWS.md)).
+
+For the Quest alone, download `vtmb-companion-0-3-0-windows-x64.zip` from the [releases page](https://github.com/alex-nax/resource/releases), and unpack it to a folder you can write to. Keep the files together. A Companion you already have offers the update itself.
 
 Run `vtmb-companion.exe`. Windows may warn about an unknown publisher, because the app is not signed: choose **More info**, then **Run anyway**.
 
@@ -18,6 +20,25 @@ Check the download against the release's `SHA256SUMS` file if you want to be sur
 2. Open the **Setup** tab. Each row says what it found and what is left.
 3. Press **Set up everything left**. It tells you the sizes first, and stops if it needs you.
 4. When it says **Ready**, start the game from the headset.
+
+## The PC version (PCVR)
+
+The Windows installer puts the game and the Companion in one folder and opens the Companion on its **PCVR** tab, a
+numbered checklist. The [PC VR guide](INSTALL-WINDOWS.md) walks through it step by step:
+
+1. **Install:** where the game is.
+2. **Game files:** copies what the game needs from your own Steam or GOG copy into the install's `gamedata`. Your copy
+   is only read. A stopped copy goes on where it stopped. **Browse...** picks another copy at any time.
+3. **Unofficial Patch:** downloads our prepared 11.5 pack, which keeps every 0.1.x save. You can also pick the patch's
+   11.5 installer you downloaded yourself (it is unpacked, never run) or a pack you already have.
+4. **Graphics packs:** from our catalog, each checked against its size and SHA256 before it is used, one at a time from
+   a queue; **Install all for this PC** queues what your GPU can use. The RTX Remaster materials are converted from
+   the mod's own archive, which you download from its page. Turn the packs on in the game's Mods menu.
+5. **Saves:** "Import saves from Quest" and "Send saves to Quest" never overwrite a save: a different save with the same
+   name gets a new slot, and an autosave is replaced only by a newer one, after a backup.
+
+**Play** starts the game in its folder and writes its log to `logs`. Every step shows its progress in percent and
+keeps an error on the step, with **Retry**.
 
 ## Coming from 0.1.1
 

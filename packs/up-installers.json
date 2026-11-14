@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "revision": 3,
+  "about": "Unofficial Patch by Werner Spahl (Wesp5): our prepared 11.5 pack. Release 0.1.3 ships 11.5 only; the latest patch comes with 0.2.0. The Companion downloads it, checks its sha256 and installs it.",
+  "installers": [
+    {
+      "version": "11.5",
+      "name": "Unofficial Patch 11.5",
+      "default": true,
+      "note": "Our prepared 11.5 pack from release 0.1.2. Keeps every save made with 0.1.0 to 0.1.2, on the Quest and the PC.",
+      "file": "resource-unofficial-patch-11.5-resource.20261106c-sidequest.zip",
+      "bytes": 757095260,
+      "sha256": "0fedd0a52f3d15440162db7e810535c27e93df017da932d93a76503a5f1f6eba",
+      "url": "https://github.com/alex-nax/resource/releases/download/v0.1.2/resource-unofficial-patch-11.5-resource.20261106c-sidequest.zip"
+    }
+  ]
+}

@@ -1,5 +1,21 @@
 # Release notes
 
+## 0.1.3: PC VR
+
+The first Windows release. `vtmb-vr-0.1.3-setup.exe` installs the game and the Companion app; the Companion's
+**PCVR** tab then copies your own game files, installs the Unofficial Patch 11.5 and, if you want them, the graphics
+packs: PBR materials, the Bloodlines RTX Remaster's materials converted on your PC, and MasterPBR's lighting with its
+ray-tracing add-on. On PC the game adds DLSS (up to DLAA), XeSS and FSR, ray-traced shadows, reflections and lighting,
+and settings with several values now open a list. Quest saves import to the PC and back from the Companion, never
+overwritten. Follow the [PC VR guide](INSTALL-WINDOWS.md); it lists the recommended settings and the ones to leave
+off. See the [changelog](CHANGELOG.md) for everything else, including fixes that the Quest gets next.
+
+**The Quest stays on 0.1.2 for now.** Quest 0.1.3 follows after a final check; nothing changes on the headset until
+then.
+
+You need a legal Steam or GOG copy of Bloodlines (2004). The Unofficial Patch is by **Werner Spahl (Wesp5)** and
+contributors. The setup is not signed yet: if SmartScreen warns, choose **More info**, then **Run anyway**.
+
 ## 0.1.2
 
 Weapon grips on every weapon, enemies that run the original game's own AI rules, saves

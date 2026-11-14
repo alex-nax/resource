@@ -14,6 +14,11 @@ ships innoextract, with its license texts in an `innoextract-licenses` folder be
 see [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md).
 
 The APK also contains these notices under `assets/third-party/`.
+
+[nrd/](nrd/LICENSE.txt) is for the PC builds with ray tracing only (F1744, built with `VTMB_NRD`): NVIDIA's RTX SDKs
+License for NRD, and MIT for MathLib and ShaderMake. Release checklist for those builds: ship these three texts beside
+the application; if a release ever carries modified NRD source, it must also say "This software contains source code
+provided by NVIDIA Corporation." (the licence's clause 2(b)). The APK does not include them.
 OpenAL Soft is dynamically linked as `libopenal.so` in 0.1.1 and later.
 The matching `vtmb-re_source-0-1-1-openal-source.zip` contains its exact source,
 local compatibility change and build recipe. This optional developer material

@@ -165,5 +165,23 @@
     "dependency": "openxr-jnipp",
     "file": "licenses/openxr/jnipp/LICENSE",
     "sha256": "4057416bf9f4a9dc2cc3fef280d20337856d5363fcc6a6fa6f79c0ea760bf549"
+  },
+  {
+    "dependency": "nrd",
+    "revision": "8f12a22fc90e6a3c7f5da4c9c3103633c842963a",
+    "file": "licenses/nrd/LICENSE.txt",
+    "sha256": "0f74d24da3082b666de48eea9ec7ff835657575a71576281e383901f3d7c08c2"
+  },
+  {
+    "dependency": "nrd-mathlib",
+    "revision": "aa432ad9a80691eb8c3ec4d576bbad5ac100fdc8",
+    "file": "licenses/nrd/mathlib/LICENSE.txt",
+    "sha256": "7c5e43e9fe07dd6f50cc6e000df7980640706d6278b4c6e4d3126a31e9ff1c93"
+  },
+  {
+    "dependency": "nrd-shadermake",
+    "revision": "3f01623a76b092ac127d2debd79a672f55d77665",
+    "file": "licenses/nrd/shadermake/LICENSE.txt",
+    "sha256": "9a15ad379b80dd0cf5df71dc394ca940fb31f58aa6098f6e74c499a845edfc32"
   }
 ]

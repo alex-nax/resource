@@ -1,7 +1,7 @@
 # Known limitations
 
-This is an early release. The game has not been tested much beyond arrival in
-**Downtown**, so later areas and quests may contain significant issues.
+This is an early release. The game has been tested through the first Downtown quests, but not much beyond arrival in
+**Hollywood**, so later areas and quests may contain significant issues.
 
 - Some animations are not yet faithful to the original game.
 - Enemy AI and physics need further tuning.
@@ -10,7 +10,15 @@ This is an early release. The game has not been tested much beyond arrival in
 - Masquerade violations and Humanity loss currently occur only through dialogue
   checks; their other gameplay triggers are not implemented yet.
 
-Open issues in 0.1.2:
+PC VR in 0.1.3:
+
+- Character parallax is not ready: leave it Off. DLSS Ray Reconstruction works but costs too much frame time in VR for
+  90 fps; use NRD. See the [recommended settings](INSTALL-WINDOWS.md#recommended-settings).
+- Only NVIDIA RTX GPUs have been tested.
+- The setup and the Companion are not signed yet, so Windows SmartScreen warns about them.
+- Converting the RTX Remaster materials needs about 40 GB free while it runs.
+
+Open issues carried from 0.1.2:
 
 - Some weapon holds still need work (the female baton, torch and tire iron, the Chang blade's
   thumb, several pistol, SMG and shotgun two-hand holds, the frag grenade). The upper arm can sit
